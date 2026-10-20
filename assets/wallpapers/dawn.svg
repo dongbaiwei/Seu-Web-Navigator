@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1440" viewBox="0 0 2560 1440">
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="2560" y2="1440" gradientUnits="userSpaceOnUse"><stop stop-color="#f4d49e"/><stop offset="1" stop-color="#9fcbd4"/></linearGradient></defs>
+  <path fill="url(#sky)" d="M0 0h2560v1440H0z"/>
+  <circle cx="1800" cy="300" r="330" fill="#fff" fill-opacity="0.266666667"/>
+</svg>

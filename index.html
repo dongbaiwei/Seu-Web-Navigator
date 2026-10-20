@@ -2432,10 +2432,20 @@ body {
         <button type="button" data-wallpaper-choice="molecular" aria-pressed="true"><span class="wallpaper-swatch wallpaper-molecular"></span>学院背景</button>
         <button type="button" data-wallpaper-choice="emblem" aria-pressed="false"><span class="wallpaper-swatch wallpaper-emblem"></span>单校徽</button>
         <button type="button" data-wallpaper-choice="plain" aria-pressed="false"><span class="wallpaper-swatch wallpaper-plain"></span>纯色</button>
-        <button type="button" data-wallpaper-choice="upload" aria-pressed="false" id="uploadedWallpaper" hidden><span class="wallpaper-swatch" id="uploadedWallpaperPreview"></span>我的图片</button>
+        <button type="button" data-wallpaper-choice="dawn" aria-pressed="false"><span class="wallpaper-swatch"><img class="wallpaper-preset-preview" src="assets/wallpapers/dawn.svg" alt="" loading="lazy"></span>晨光</button>
+        <button type="button" data-wallpaper-choice="lakeside" aria-pressed="false"><span class="wallpaper-swatch"><img class="wallpaper-preset-preview" src="assets/wallpapers/lakeside.svg" alt="" loading="lazy"></span>湖边</button>
+        <button type="button" data-wallpaper-choice="night-sky" aria-pressed="false"><span class="wallpaper-swatch"><img class="wallpaper-preset-preview" src="assets/wallpapers/night-sky.svg" alt="" loading="lazy"></span>夜空</button>
+        <button type="button" data-wallpaper-choice="sleeping-dragon" aria-pressed="false"><span class="wallpaper-swatch"><img class="wallpaper-preset-preview" src="assets/wallpapers/sleeping-dragon.jpg" alt="" loading="lazy"></span>睡梦龙</button>
+        <button type="button" data-wallpaper-choice="thinking-dragon" aria-pressed="false"><span class="wallpaper-swatch"><img class="wallpaper-preset-preview" src="assets/wallpapers/thinking-dragon.jpg" alt="" loading="lazy"></span>沉思龙</button>
+        <button type="button" data-wallpaper-choice="nine-dragon" aria-pressed="false"><span class="wallpaper-swatch"><img class="wallpaper-preset-preview" src="assets/wallpapers/nine-dragon.jpg" alt="" loading="lazy"></span>nine龙</button>
+        <button type="button" data-wallpaper-choice="orange-island" aria-pressed="false"><span class="wallpaper-swatch"><img class="wallpaper-preset-preview" src="assets/wallpapers/orange-island.jpg" alt="" loading="lazy"></span>橘子洲头</button>
       </div></fieldset>
-      <div class="wallpaper-upload-actions"><label class="wallpaper-upload" for="wallpaperFile">上传图片<input type="file" id="wallpaperFile" accept="image/png,image/jpeg,image/webp"></label><button type="button" id="removeWallpaper" hidden>删除上传图片</button></div>
-      <p class="appearance-note">支持 JPG、PNG、WebP，最大 20 MB；图片自动适配屏幕，仅保存在此浏览器。</p>
+      <fieldset class="wallpaper-library"><legend>我的壁纸 <span id="wallpaperCount" class="wallpaper-count">0 张</span></legend>
+        <div class="wallpaper-upload-actions"><label class="wallpaper-upload" for="wallpaperFile">添加图片<input type="file" id="wallpaperFile" accept="image/png,image/jpeg,image/webp" multiple disabled></label></div>
+        <p id="wallpaperLibraryEmpty" class="appearance-note">正在读取已保存的壁纸…</p>
+        <div id="wallpaperGallery" class="wallpaper-gallery" role="group" aria-label="已保存的壁纸"></div>
+        <p class="appearance-note">可一次选择多张 JPG、PNG、WebP，每张不超过 20 MB。点击缩略图切换，刷新或下次打开仍会保留；仅保存在当前浏览器，清除网站数据会移除壁纸。</p>
+      </fieldset>
       <p class="appearance-status" id="appearanceStatus" role="status" aria-live="polite"></p>
     </div>
     <button class="appearance-done" id="doneAppearance" type="button">完成</button>
