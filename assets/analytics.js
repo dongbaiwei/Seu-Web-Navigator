@@ -75,7 +75,6 @@
         document.getElementById('analyticsVisitorsLabel').textContent = '访客数';
         document.getElementById('analyticsVisitors').textContent = visitors.toLocaleString('zh-CN');
         document.getElementById('analyticsSinceItem').hidden = true;
-        document.getElementById('analyticsProvider').hidden = false;
         summary.title = '不蒜子按 ' + site.hostname + ' 整个域名累计统计，包含此域名下接入同一服务的其他页面；访客按服务规则估算去重，与 Umami 本项目的统计口径不同。';
         summary.hidden = false;
       }
