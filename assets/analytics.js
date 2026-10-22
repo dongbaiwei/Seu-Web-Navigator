@@ -52,8 +52,45 @@
     siteAdded() { send('custom_site_add', {kind: 'custom'}); }
   });
   const summary = document.getElementById('siteAnalytics');
+  function loadPublicCounter() {
+    if (!permitted() || !summary || config.publicCounter !== 'busuanzi') return;
+    const callback = 'BmeVisitCounter_' + crypto.randomUUID().replace(/-/g, '');
+    const counter = document.createElement('script');
+    let finished = false;
+    const timeout = setTimeout(() => finish(), 8000);
+    function finish() {
+      if (finished) return;
+      finished = true; clearTimeout(timeout);
+      // A late JSONP response must remain harmless after timeout or opt-out.
+      window[callback] = () => {};
+      counter.remove();
+    }
+    window[callback] = data => {
+      if (finished) return;
+      const count = value => typeof value === 'number' || typeof value === 'string' && /^\d+$/.test(value) ? Number(value) : NaN;
+      const pageviews = count(data?.site_pv), visitors = count(data?.site_uv);
+      if (permitted() && Number.isSafeInteger(pageviews) && pageviews >= 0 && Number.isSafeInteger(visitors) && visitors >= 0) {
+        document.getElementById('analyticsPageviewsLabel').textContent = '本站总访问量';
+        document.getElementById('analyticsPageviews').textContent = pageviews.toLocaleString('zh-CN');
+        document.getElementById('analyticsVisitorsLabel').textContent = '访客数';
+        document.getElementById('analyticsVisitors').textContent = visitors.toLocaleString('zh-CN');
+        document.getElementById('analyticsSinceItem').hidden = true;
+        document.getElementById('analyticsProvider').hidden = false;
+        summary.title = '不蒜子按 ' + site.hostname + ' 整个域名累计统计，包含此域名下接入同一服务的其他页面；访客按服务规则估算去重，与 Umami 本项目的统计口径不同。';
+        summary.hidden = false;
+      }
+      finish();
+    };
+    counter.async = true;
+    counter.src = 'https://busuanzi.ibruce.info/busuanzi?jsonpCallback=' + callback;
+    // Domain-level totals only need the origin: don't disclose personal query strings or page paths.
+    counter.referrerPolicy = 'origin';
+    counter.addEventListener('error', finish);
+    counter.addEventListener('load', finish);
+    document.head.append(counter);
+  }
   async function loadSummary() {
-    if (!permitted() || !summary || !config.summaryUrl) return;
+    if (!permitted() || !summary || config.publicCounter !== 'umami' || !config.summaryUrl) return;
     try {
       const url = new URL(config.summaryUrl, document.baseURI);
       if (url.origin !== location.origin) return;
@@ -108,5 +145,6 @@
   });
   script.addEventListener('error', () => { queue = []; });
   document.head.append(script);
+  loadPublicCounter();
   loadSummary();
 })();

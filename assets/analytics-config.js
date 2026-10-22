@@ -7,5 +7,7 @@ window.BmeAnalyticsConfig = Object.freeze({
   title: '东南大学个人导航',
   // Set to the real first collection date, YYYY-MM-DD, when enabling tracking.
   startedAt: '2026-10-22',
+  // Public footer: 'busuanzi' (domain totals) or 'umami' (this project's exported summary).
+  publicCounter: 'busuanzi',
   summaryUrl: 'assets/analytics-summary.json'
 });

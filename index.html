@@ -1906,11 +1906,11 @@ body {
 
   <!-- 底部信息 -->
   <footer class="footer"><div class="site-support"><button type="button" id="openWelcomeHint">使用提示</button><span aria-hidden="true">·</span><button type="button" id="openSiteFeedback">反馈问题 / 推荐网站</button><button type="button" id="analyticsPrivacy" hidden>访问统计说明</button></div>
-    <p class="site-analytics" id="siteAnalytics" hidden><span>累计浏览 <strong id="analyticsPageviews"></strong> 次</span><span>近 30 天访客 <strong id="analyticsVisitors"></strong></span><span>统计始于 <time id="analyticsSince"></time></span></p>
+    <p class="site-analytics" id="siteAnalytics" hidden><span><i class="fas fa-eye" aria-hidden="true"></i> <span id="analyticsPageviewsLabel">累计浏览</span> <strong id="analyticsPageviews"></strong> 次</span><span><i class="fas fa-users" aria-hidden="true"></i> <span id="analyticsVisitorsLabel">近 30 天访客</span> <strong id="analyticsVisitors"></strong></span><span id="analyticsSinceItem">统计始于 <time id="analyticsSince"></time></span><a id="analyticsProvider" href="https://busuanzi.ibruce.info/" target="_blank" rel="noopener noreferrer" hidden>不蒜子统计</a></p>
   </footer>
   <dialog class="personal-dialog" id="analyticsPrivacyDialog" aria-labelledby="analyticsPrivacyHeading">
     <div class="personal-heading"><h2 id="analyticsPrivacyHeading">访问统计说明</h2><button type="button" data-analytics-close aria-label="关闭统计说明">×</button></div>
-    <div class="analytics-privacy-copy"><p>本站使用 Umami 记录浏览量、估算独立访客以及导航点击、收藏、学院切换和添加网站的使用次数，用于改进导航体验。</p><p>统计不上传你添加的网站地址或名称、搜索内容、自定义标题和壁纸。服务会接收页面访问及设备基本信息；访客数按服务规则去重，并不等同于实际学生人数。</p><p>公开数字定期更新，不是实时在线人数。浏览器的“请勿跟踪”和全局隐私控制开启时暂停统计。</p><label><input type="checkbox" id="analyticsOptOut">在此浏览器中退出访问统计</label><p id="analyticsPrivacyStatus" role="status"></p></div>
+    <div class="analytics-privacy-copy"><p>本站使用 Umami 记录浏览量、估算独立访客以及导航点击、收藏、学院切换和添加网站的使用次数，用于改进导航体验。</p><p>页脚默认使用不蒜子展示累计访问量和访客数，按 dongbaiwei.github.io 整个域名统计，可能包含域名下接入同一服务的其他页面；与 Umami 本项目的数据口径不同。</p><p>统计不上传你添加的网站地址或名称、搜索内容、自定义标题和壁纸。不蒜子请求仅发送来源域名；服务会接收访问请求及设备基本信息，访客数并不等同于实际学生人数。</p><p>数字不是实时在线人数。浏览器的“请勿跟踪”和全局隐私控制开启时暂停上述统计；也可通过下方开关退出。</p><label><input type="checkbox" id="analyticsOptOut">在此浏览器中退出访问统计</label><p id="analyticsPrivacyStatus" role="status"></p></div>
   </dialog>
 
   <script>
