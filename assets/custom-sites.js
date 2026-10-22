@@ -237,6 +237,7 @@
         category: document.getElementById('customSiteCategory').value
       }, existingSites());
       persist(sites.concat(site));
+      window.BmeAnalytics?.siteAdded();
       buildCard(site);
       if (window.BmePersonalization) BmePersonalization.refresh();
       initializeFavorites();

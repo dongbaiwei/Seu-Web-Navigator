@@ -40,7 +40,7 @@
       for (const child of original.childNodes) link.append(child.cloneNode(true));
       const number = link.querySelector('.row-no');
       if (number) number.textContent = String(index + 1).padStart(2, '0');
-      link.addEventListener('click', () => { recordVisit(original); render(); });
+      link.addEventListener('click', () => { recordVisit(original, 'favorites'); render(); });
       shortcut.append(button, link);
       if (window.BmeNavigationDesign) BmeNavigationDesign.decorateCard(shortcut);
       rows.append(shortcut);

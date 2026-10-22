@@ -132,7 +132,7 @@
     const motif=el('img','college-background-motif');motif.id='collegeMotif';motif.alt='';motif.setAttribute('aria-hidden','true');document.querySelector('.bme-background').append(motif);
     refresh();applyIdentity();applyVisuals();
   }
-  function selectCollege(id){if(!BmeColleges.profiles.some(c=>c.id===id))return false;return commit({...copy(state),college:id});}
+  function selectCollege(id){if(!BmeColleges.profiles.some(c=>c.id===id))return false;const previous=state.college;const saved=commit({...copy(state),college:id});if(saved&&id!==previous)window.BmeAnalytics?.collegeChanged(id);return saved;}
   function setTitle(value){const text=String(value).trim();if(text.length>32){status('标题最多32个字。');return false;}return commit({...copy(state),title:text});}
   function updateGroup(group,values){const next=copy(state);Object.assign(next[group],values);return commit(normalize(next));}
   function addCategory(name){name=String(name).trim();if(!name||name.length>16){status('分类名称需为1—16个字。');return false;}if(state.categories.length>=20){status('最多支持20个分类。');return false;}if(state.categories.some(c=>c.name===name)){status('这个分类名称已存在。');return false;}const id='cat-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,6);return commit({...copy(state),categories:[...state.categories,{id,name,visible:true}]})?id:false;}

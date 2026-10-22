@@ -1,0 +1,51 @@
+name: Publish navigation with visit statistics
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: navigation-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    # Opt in after adding the Umami configuration and secret, then select Actions in Pages settings.
+    if: vars.ANALYTICS_PUBLIC_STATS == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/configure-pages@v5
+      - name: Prepare the public site
+        run: |
+          mkdir -p _site
+          cp index.html .nojekyll _site/
+          cp -R assets _site/assets
+          for file in google*.html; do
+            [ ! -f "$file" ] || cp "$file" _site/
+          done
+      - name: Read aggregate visit statistics
+        run: node scripts/export-analytics.mjs _site/assets/analytics-summary.json
+        env:
+          UMAMI_API_KEY: ${{ secrets.UMAMI_API_KEY }}
+          UMAMI_API_BASE: ${{ vars.UMAMI_API_BASE }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

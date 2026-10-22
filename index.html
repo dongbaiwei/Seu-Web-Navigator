@@ -1905,7 +1905,13 @@ body {
   <div class="footer-band" aria-hidden="true"></div>
 
   <!-- 底部信息 -->
-  <footer class="footer"><div class="site-support"><button type="button" id="openWelcomeHint">使用提示</button><span aria-hidden="true">·</span><button type="button" id="openSiteFeedback">反馈问题 / 推荐网站</button></div></footer>
+  <footer class="footer"><div class="site-support"><button type="button" id="openWelcomeHint">使用提示</button><span aria-hidden="true">·</span><button type="button" id="openSiteFeedback">反馈问题 / 推荐网站</button><button type="button" id="analyticsPrivacy" hidden>访问统计说明</button></div>
+    <p class="site-analytics" id="siteAnalytics" hidden><span>累计浏览 <strong id="analyticsPageviews"></strong> 次</span><span>近 30 天访客 <strong id="analyticsVisitors"></strong></span><span>统计始于 <time id="analyticsSince"></time></span></p>
+  </footer>
+  <dialog class="personal-dialog" id="analyticsPrivacyDialog" aria-labelledby="analyticsPrivacyHeading">
+    <div class="personal-heading"><h2 id="analyticsPrivacyHeading">访问统计说明</h2><button type="button" data-analytics-close aria-label="关闭统计说明">×</button></div>
+    <div class="analytics-privacy-copy"><p>本站使用 Umami 记录浏览量、估算独立访客以及导航点击、收藏、学院切换和添加网站的使用次数，用于改进导航体验。</p><p>统计不上传你添加的网站地址或名称、搜索内容、自定义标题和壁纸。服务会接收页面访问及设备基本信息；访客数按服务规则去重，并不等同于实际学生人数。</p><p>公开数字定期更新，不是实时在线人数。浏览器的“请勿跟踪”和全局隐私控制开启时暂停统计。</p><label><input type="checkbox" id="analyticsOptOut">在此浏览器中退出访问统计</label><p id="analyticsPrivacyStatus" role="status"></p></div>
+  </dialog>
 
   <script>
     // 全局变量
@@ -2052,6 +2058,7 @@ body {
       }
       
       localStorage.setItem('favorites', JSON.stringify(favorites));
+      window.BmeAnalytics?.recordCard(isActive ? 'favorite_remove' : 'favorite_add', card);
       
       performSearch();
     }
@@ -2067,9 +2074,10 @@ body {
     }
 
     // 访问统计
-    function recordVisit(link) {
+    function recordVisit(link, placement) {
       const card = link.closest('.link-card');
       const title = card.querySelector('.link-title').textContent;
+      window.BmeAnalytics?.recordCard('navigation_click', card, placement);
       
       // 记录最近访问
       const now = new Date().toISOString();
@@ -2450,6 +2458,9 @@ body {
     </div>
     <button class="appearance-done" id="doneAppearance" type="button">完成</button>
   </dialog>
+  <script src="assets/analytics-config.js"></script>
+  <script src="assets/analytics.js"></script>
+  <link rel="stylesheet" href="assets/analytics.css">
   <script src="assets/site-model.js"></script>
   <script src="assets/custom-sites.js"></script>
   <script src="assets/college-profiles.js"></script>
